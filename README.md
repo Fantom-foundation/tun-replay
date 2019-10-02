@@ -39,9 +39,14 @@ TCP is a powerful protocol providing stable high-level abstractions on top of re
 
 Another network namespace with tunnel inside is created apart from namespaces for user processes. All TCP packets from user namespaces are routed to this special namespace, but before that they are analyzed in order to find a [SYN] packet opening a new TCP connection. When such packet appears, a pair of sockets  is created in a special namespace. We call this pair of sockets a pipe. The first one accepts the new connection, and the second socket opens a connection to the original destination. Due to address masquerading user processes cannot find out that they communicate with fake sockets.
 In record mode traffic from each sockets of the pipe is read, dumped and put to the other socket. In replay mode the traffic from each socket is read, thrown away and respective dumped data is written to the other socket.
+
 The next picture demonstrates the path of the TCP packet.
+
 ![TCP packets](img/SmallDiagram.png)
-Picture.
+
+And this is an approximate scheme of the system.
+
+![TCP packets](img/Scheme.png)
 
 Here is a simple example how our solution perfectly replays data from a videogame.
 
